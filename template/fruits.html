@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fruit API</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    #fruit-list {
+      margin-top: 20px;
+    }
+
+    .fruit-item {
+      background-color: #fff;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .fruit-item p {
+      margin: 0;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Fruit List</h1>
+  <div id="fruit-list"></div>
+
+  <script>
+    // Fetch the fruit data from the API
+    fetch('http://localhost:3000/fruits')
+      .then(response => response.json())
+      .then(data => {
+        const fruitList = document.getElementById('fruit-list');
+
+        // Loop through the fruit data and create HTML elements to display the fruits
+        data.forEach(fruit => {
+          const fruitItem = document.createElement('div');
+          fruitItem.classList.add('fruit-item');
+
+          const nameElement = document.createElement('p');
+          nameElement.textContent = `Name: ${fruit.name}`;
+          fruitItem.appendChild(nameElement);
+
+          const colorElement = document.createElement('p');
+          colorElement.textContent = `Color: ${fruit.color}`;
+          fruitItem.appendChild(colorElement);
+
+          fruitList.appendChild(fruitItem);
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  </script>
+</body>
+</html>
